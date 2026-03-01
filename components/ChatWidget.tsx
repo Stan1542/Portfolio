@@ -4,14 +4,18 @@ import { useState, useRef, useEffect } from "react";
 
 export default function ChatWidget() {
   const [open, setOpen] = useState(false);
+
   const [messages, setMessages] = useState<any[]>([
     {
       role: "assistant",
-      content: "Hi. I’m Stanley’s assistant. How can I help you today?",
+      content:
+        "Hi. I am Stanley's automated assistant. You can ask me about his projects, skills, certifications, education, or contact details. How can I help you today?",
     },
   ]);
+
   const [input, setInput] = useState("");
   const [loading, setLoading] = useState(false);
+
   const messagesEndRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
@@ -54,7 +58,7 @@ export default function ChatWidget() {
 
   return (
     <>
-      {/* Floating Button */}
+      {/* FLOATING BUTTON */}
       <button
         onClick={() => setOpen(!open)}
         className="fixed bottom-5 right-5 sm:bottom-8 sm:right-8 w-14 h-14 flex items-center justify-center border border-neutral-800 bg-black hover:bg-neutral-900 transition-all duration-300 z-[60] shadow-lg"
@@ -79,19 +83,31 @@ export default function ChatWidget() {
         )}
       </button>
 
-      {/* Chat Modal */}
+      {/* CHAT MODAL */}
       {open && (
         <div
           className="
-          fixed bottom-20 right-4 left-4
-          sm:left-auto sm:right-8
-          sm:w-[420px]
-          h-[75vh] sm:h-[500px]
-          bg-neutral-950 border border-neutral-800
-          shadow-2xl z-50 flex flex-col
-        "
+            fixed
+            bottom-20
+            right-4
+            left-4
+            sm:left-auto
+            sm:right-8
+            sm:w-[420px]
+            w-auto
+            h-[75vh]
+            sm:h-[500px]
+            bg-neutral-950
+            border
+            border-neutral-800
+            shadow-2xl
+            z-50
+            flex
+            flex-col
+            overflow-hidden
+          "
         >
-          {/* Header */}
+          {/* HEADER */}
           <div className="flex items-center gap-3 p-4 border-b border-neutral-900 bg-black">
             <div className="w-9 h-9 border border-neutral-800 bg-neutral-900 overflow-hidden">
               <img
@@ -100,36 +116,60 @@ export default function ChatWidget() {
                 className="w-full h-full object-cover"
               />
             </div>
-            <div>
-              <div className="text-xs font-bold uppercase tracking-widest">
+            <div className="flex flex-col">
+              <span className="text-xs font-bold uppercase tracking-widest">
                 ASSISTANT // STAN
-              </div>
-              <div className="text-[10px] text-emerald-500 flex items-center gap-1">
+              </span>
+              <span className="text-[10px] text-emerald-500 flex items-center gap-1">
                 <span className="h-1 w-1 bg-emerald-500 rounded-full animate-pulse" />
                 System Online
-              </div>
+              </span>
             </div>
           </div>
 
-          {/* Body */}
-          <div className="flex-1 overflow-y-auto p-4 space-y-5 bg-black">
-            {messages.map((msg, i) => (
+          {/* CHAT BODY */}
+          <div className="flex-1 overflow-y-auto p-4 bg-black">
+            {messages.map((msg, index) => (
               <div
-                key={i}
-                className={`flex ${
+                key={index}
+                className={`flex mb-4 ${
                   msg.role === "assistant"
                     ? "justify-start"
                     : "justify-end"
                 }`}
               >
                 <div
-                  className={`max-w-[85%] p-3 text-sm leading-relaxed ${
+                  className={`max-w-[85%] p-3 text-sm leading-relaxed border ${
                     msg.role === "assistant"
-                      ? "bg-neutral-900 border border-neutral-800 text-neutral-300"
-                      : "bg-white text-black"
+                      ? "bg-neutral-900 border-neutral-800 text-neutral-300"
+                      : "bg-white text-black border-white font-medium"
                   }`}
                 >
-                  {msg.content}
+                  {msg.role === "assistant" ? (
+                    <div className="space-y-2">
+                      {msg.content.split("\n").map((line: string, i: number) => {
+                        if (line.startsWith("•")) {
+                          const cleanLine = line.replace("• ", "");
+                          const [title, ...rest] = cleanLine.split(":");
+
+                          return (
+                            <div key={i} className="flex flex-col">
+                              <span className="font-semibold text-white">
+                                • {title}:
+                              </span>
+                              <span className="text-neutral-400">
+                                {rest.join(":")}
+                              </span>
+                            </div>
+                          );
+                        }
+
+                        return <p key={i}>{line}</p>;
+                      })}
+                    </div>
+                  ) : (
+                    msg.content
+                  )}
                 </div>
               </div>
             ))}
@@ -143,14 +183,14 @@ export default function ChatWidget() {
             <div ref={messagesEndRef} />
           </div>
 
-          {/* Input */}
-          <div className="p-4 border-t border-neutral-900 bg-black">
+          {/* INPUT AREA */}
+          <div className="px-4 py-3 border-t border-neutral-900 bg-black">
             <div className="flex items-center border border-neutral-800">
               <input
                 value={input}
                 onChange={(e) => setInput(e.target.value)}
                 onKeyDown={(e) => e.key === "Enter" && sendMessage()}
-                placeholder="Ask something..."
+                placeholder="Ask questions about me..."
                 className="flex-1 bg-black text-white px-4 py-3 text-sm outline-none"
               />
               <button
