@@ -1,0 +1,23 @@
+@import "tailwindcss";
+@import "tw-animate-css";
+@import "shadcn/tailwind.css";
+
+/* Subtle grid background */
+html,
+body {
+  background-color: #000;
+  color: #e5e5e5;
+}
+
+body {
+  overflow-x: hidden;
+  
+}
+
+/* Smooth spotlight rendering */
+#hero {
+  --x: 50%;
+  --y: 50%;
+}
+
+
