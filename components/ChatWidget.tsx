@@ -61,7 +61,7 @@ export default function ChatWidget() {
       {/* FLOATING BUTTON */}
       <button
         onClick={() => setOpen(!open)}
-        className="fixed bottom-5 right-5 sm:bottom-15 sm:right-8 w-14 h-14 flex items-center justify-center border border-neutral-800 bg-black hover:bg-neutral-900 transition-all duration-300 z-[60] shadow-lg"
+        className="fixed bottom-5 right-5 sm:bottom-3 sm:right-8 w-14 h-14 flex items-center justify-center border border-neutral-800 bg-black hover:bg-neutral-900 transition-all duration-300 z-[60] shadow-lg"
       >
         {open ? (
           <span className="text-white text-lg">✕</span>
@@ -207,4 +207,5 @@ export default function ChatWidget() {
     </>
   );
 }
+
 
