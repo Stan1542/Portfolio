@@ -3,11 +3,11 @@
 export const experiences = [
   {
     id: 3,
-    title: "IT AI Automation Intern",
+    title: "IT Intern",
     organization: "BMW Group South Africa",
     badge: "Current",
     date: "May 2026 – Present",
-    image: "/images/experience/bmw.jpg", // change to your actual image path
+    image: "/images/bmw.jpg", // change to your actual image path
     overviewCard:
       "Supporting HR digital transformation through AI adoption, workforce analytics, dashboard development, and business process automation.",
     overviewModel:
